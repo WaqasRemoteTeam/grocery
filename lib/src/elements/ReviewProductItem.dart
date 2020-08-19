@@ -10,6 +10,8 @@ import '../models/product.dart';
 
 // ignore: must_be_immutable
 
+/*dsd*/
+
 
 class ReviewProductItemWidget extends StatefulWidget {
 
@@ -39,8 +41,7 @@ class _ReviewProductItemWidgetState extends State<ReviewProductItemWidget>{
     var _subsecondValue = false;
     var _subthirsValue = false;
     var _subfourthValue = false;
-    return StatefulBuilder(builder: (BuildContext context,StateSetter setState){
-      return InkWell(
+    return InkWell(
         onTap: () {},
         child: Wrap(
           direction: Axis.horizontal,
@@ -76,124 +77,76 @@ class _ReviewProductItemWidgetState extends State<ReviewProductItemWidget>{
                                     child: Text("Slot")
                                 ),
                                 DropdownMenuItem(
-                                  child: Container(
-                                    width: 200,
-                                    child: CheckboxListTile(
-                                      title: const Text('Slot 1'),
-                                      value: _firstValue,
-                                      onChanged: (bool value) {
-                                        setState(() {
-                                          _firstValue = value;
-                                        });
-                                      },
-
-                                    ),
-
-                                  ),
-                                ),
-                                DropdownMenuItem(
-                                  child: Container(
-                                    width: 200,
-                                    child: CheckboxListTile(
-                                      title: const Text('Slot 2'),
-                                      value: _secondValue,
-                                      onChanged: (bool value) {
-                                        setState(() {
-                                          _secondValue= value;
-                                        });
-                                      },
-
-                                    ),
-
-                                  ),
-                                ),DropdownMenuItem(
-                                  child: Container(
-                                    width: 200,
-                                    child: CheckboxListTile(
-                                      title: const Text('Slot 3'),
-                                      value: _thirsValue,
-                                      onChanged: (bool value) {
-                                        setState(() {
-                                          _thirsValue = value;
-                                        });
-                                      },
-
-                                    ),
-
-                                  ),
-                                ),DropdownMenuItem(
-                                  child: Container(
-                                    width: 200,
-                                    child: CheckboxListTile(
-                                      title: const Text('Slot 4'),
-                                      value: _fourthValue,
-                                      onChanged: (bool value) {
-                                        setState(() {
-                                          _fourthValue = value;
-                                        });
-                                      },
-
-                                    ),
-
-                                  ),
-                                ),
-
-                              ],
-                              onChanged: (value) {
-                              },
-                              hint: Text('Select value'),
-                            ):DropdownButton(
-                              items: [
-                                DropdownMenuItem(
-                                  child: Text("Subscription")
-                                ),
-                                DropdownMenuItem(
-                                  child: Container(
-                                    width: 200,
-                                    child: CheckboxListTile(
-                                        title: const Text('5 days'),
-                                        value: _subfirstValue,
-                                        onChanged: (bool value) {
-                                          setState(() {
-                                            _subfirstValue = value;
-                                          });
+                                    child: Container(
+                                      width: 200,
+                                      child: StatefulBuilder(
+                                        builder: (BuildContext context,StateSetter _setState){
+                                          return  CheckboxListTile(
+                                            title: const Text('Slot 1'),
+                                            value: _firstValue,
+                                            onChanged: (bool value) {
+                                              _setState(() {
+                                                _firstValue = value;
+                                              });
+                                            },
+                                          );
                                         },
-                                      
                                       ),
-
-                                  ),
+                                    )
                                 ),
                                 DropdownMenuItem(
-                                  child: Container(
-                                    width: 200,
-                                    child: CheckboxListTile(
-                                        title: const Text('10 days'),
-                                        value: _secondValue,
-                                        onChanged: (bool value) {
-                                          setState(() {
-                                            _secondValue = value;
-                                          });
+                                    child: Container(
+                                      width: 200,
+                                      child: StatefulBuilder(
+                                        builder: (BuildContext context,StateSetter _setState){
+                                          return  CheckboxListTile(
+                                            title: const Text('Slot 2'),
+                                            value: _secondValue,
+                                            onChanged: (bool value) {
+                                              _setState(() {
+                                                _secondValue = value;
+                                              });
+                                            },
+                                          );
                                         },
-
                                       ),
-
-                                  ),
+                                    )
                                 ),
                                 DropdownMenuItem(
-                                  child: Container(
-                                    width: 200,
-                                    child: CheckboxListTile(
-                                        title: const Text('15 days'),
-                                        value: _subthirsValue,
-                                        onChanged: (bool value) {
-                                          setState(() {
-                                            _subthirsValue = value;
-                                          });
+                                    child: Container(
+                                      width: 200,
+                                      child: StatefulBuilder(
+                                        builder: (BuildContext context,StateSetter _setState){
+                                          return  CheckboxListTile(
+                                            title: const Text('Slot 3'),
+                                            value: _thirsValue,
+                                            onChanged: (bool value) {
+                                              _setState(() {
+                                                _thirsValue = value;
+                                              });
+                                            },
+                                          );
                                         },
-
                                       ),
-
-                                  ),
+                                    )
+                                ),
+                                DropdownMenuItem(
+                                    child: Container(
+                                      width: 200,
+                                      child: StatefulBuilder(
+                                        builder: (BuildContext context,StateSetter _setState){
+                                          return  CheckboxListTile(
+                                            title: const Text('Slot 4'),
+                                            value: _fourthValue,
+                                            onChanged: (bool value) {
+                                              _setState(() {
+                                                _fourthValue = value;
+                                              });
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    )
                                 ),
 
 
@@ -201,9 +154,73 @@ class _ReviewProductItemWidgetState extends State<ReviewProductItemWidget>{
                               onChanged: (value) {
                               },
                               hint: Text('Select value'),
-                            ),
+                            ):DropdownButton(
+                                items: [
+                                  DropdownMenuItem(
+                                      child: Text("Subscription")
+                                  ),
+                                  DropdownMenuItem(
+                                      child: Container(
+                                        width: 200,
+                                        child: StatefulBuilder(
+                                          builder: (BuildContext context,StateSetter _setState){
+                                            return  CheckboxListTile(
+                                              title: const Text('5 days'),
+                                              value: _subfirstValue,
+                                              onChanged: (bool value) {
+                                                _setState(() {
+                                                  _subfirstValue = value;
+                                                });
+                                              },
+                                            );
+                                          },
+                                        ),
+                                      )
+                                  ),
+                                  DropdownMenuItem(
+                                    child: Container(
+                                      width: 200,
+                                      child: StatefulBuilder(
+                                        builder: (BuildContext context,StateSetter _setState){
+                                          return  CheckboxListTile(
+                                            title: const Text('10 days'),
+                                            value: _subsecondValue,
+                                            onChanged: (bool value) {
+                                              _setState(() {
+                                                _subsecondValue = value;
+                                              });
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    )
+                                  ),
+                                  DropdownMenuItem(
+                                      child: Container(
+                                        width: 200,
+                                        child: StatefulBuilder(
+                                          builder: (BuildContext context,StateSetter _setState){
+                                            return  CheckboxListTile(
+                                              title: const Text('10 days'),
+                                              value: _subthirsValue,
+                                              onChanged: (bool value) {
+                                                _setState(() {
+                                                  _subthirsValue = value;
+                                                });
+                                              },
+                                            );
+                                          },
+                                        ),
+                                      )
+                                  ),
 
-                          ),
+
+                                ],
+                                onChanged: (value) {
+                                },
+                                hint: Text('Select value'),
+                              ),
+                            )
 
 
                         ],
@@ -216,9 +233,8 @@ class _ReviewProductItemWidgetState extends State<ReviewProductItemWidget>{
 
 
           ],
-        ),
-      );
-    });
+        ));
+
 
   }
 }
