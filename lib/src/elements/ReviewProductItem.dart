@@ -201,7 +201,7 @@ class _ReviewProductItemWidgetState extends State<ReviewProductItemWidget>{
                                         child: StatefulBuilder(
                                           builder: (BuildContext context,StateSetter _setState){
                                             return  CheckboxListTile(
-                                              title: const Text('10 days'),
+                                              title: const Text('15 days'),
                                               value: _subthirsValue,
                                               onChanged: (bool value) {
                                                 _setState(() {
