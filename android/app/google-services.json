@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "909886936126",
+    "firebase_url": "https://freseats-99c8e.firebaseio.com",
+    "project_id": "freseats-99c8e",
+    "storage_bucket": "freseats-99c8e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:909886936126:android:1e8d7ddd1e1223b58a2d6f",
+        "android_client_info": {
+          "package_name": "com.freseats.user"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "909886936126-9l88jskrpg1tnjgtteh4r20f78uq584c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.freseats.user",
+            "certificate_hash": "38743e2ad430739c915ec95bd851c7a503953978"
+          }
+        },
+        {
+          "client_id": "909886936126-n6fdsd5std4ep25s5fd5adkhff9evplj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWcl5VlUZvLo8JxUnr0DkVoaGiwnR3waQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "909886936126-n6fdsd5std4ep25s5fd5adkhff9evplj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
