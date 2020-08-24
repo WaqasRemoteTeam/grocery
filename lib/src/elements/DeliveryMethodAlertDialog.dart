@@ -66,6 +66,7 @@ class _DeliveryMethodAlertDialogState extends State<DeliveryMethodAlertDialog> {
     var _jsons = jsonData["data"];
 
     if (jsonData['sucess'] == true){
+      print(_jsons);
       return _jsons;
     }else{
       return null;

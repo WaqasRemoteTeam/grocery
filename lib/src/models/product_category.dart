@@ -21,7 +21,7 @@ class ProductCategory {
 
   Map<String, dynamic> toJson() => {
     "success": success,
-    "data": List<dynamic>.from(data.map((x) => x.toJson())),
+    "data": List<Datum>.from(data.map((x) => x.toJson())),
   };
 }
 

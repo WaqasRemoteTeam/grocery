@@ -10,7 +10,16 @@ import 'package:http/http.dart' as http;
 import 'CircularLoadingWidget.dart';
 
 // ignore: must_be_immutable
-class CustomerProductsList extends StatelessWidget {
+
+class CustomerProductsList extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return new _CustomerProductsListState();
+  }
+
+}
+
+class _CustomerProductsListState  extends State<CustomerProductsList> {
   List<String> productsOrderList = [
     "Paneer",
     "Rice",
@@ -27,53 +36,82 @@ class CustomerProductsList extends StatelessWidget {
     "Honey"
   ];
 
+  List <dynamic> productsList;
+
   String url = "http://skalani.in/multi/public/api/products/categories";
 
-  Future<List<Datum>> _getCategories() async {
+   Future<List<dynamic>> _getCategories() async {
     var data = await http.get(url);
-
+    
     var jsonData = json.decode(data.body);
-    var _jsons = jsonData["data"];
+    return jsonData['data'];
+    
+  }
 
-    if (jsonData['sucess'] == true) {
-      return _jsons;
-    } else {
-      return null;
-    }
+  @override
+  void initState() {
+    super.initState();
+    _getCategories().then((value) => {
+      setState((){
+        productsList = value;
+      })
+    });
+
+
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
 
+
+
     return Container(
       child: Column(
         children: <Widget>[
-          productsOrderList.isEmpty
-              ? CircularLoadingWidget(height: 200)
-              : ListView.separated(
-                  padding: EdgeInsets.all(0),
-                  itemBuilder: (context, index) {
-                    return ReviewProductItemWidget(
-                        product: productsOrderList.elementAt(index));
-                  },
-                  separatorBuilder: (context, index) => Divider(
-                    color: Colors.grey,
-                  ),
-                  itemCount: productsOrderList.length,
-                  primary: false,
-                  shrinkWrap: true,
-                ),
+          new FutureBuilder
+            (
+             future: _getCategories(),
+              builder: (BuildContext context,AsyncSnapshot snapshot){
+                switch (snapshot.connectionState){
 
-            RaisedButton(
-              
+                  case ConnectionState.waiting:
+                    return CircularLoadingWidget(height: 200);
+                    break;
+                  case ConnectionState.none:
+                   return  CircularLoadingWidget(height: 200);
+                    break;
+                  default:
+                    return ListView.separated(
+                      padding: EdgeInsets.all(0),
+                      itemBuilder: (context, index) {
+
+                         return ReviewProductItemWidget(
+                        product: snapshot.data.elementAt(index),
+
+                       );
+                      },
+                      separatorBuilder: (context, index) => Divider(
+                        color: Colors.grey,
+                      ),
+                      itemCount: snapshot.data.length,
+                      primary: false,
+                      shrinkWrap: true,
+                    );
+
+                }
+              }
+
+          ),
+          RaisedButton(
+
               onPressed: (){
                 Navigator.pop(context);
               },
-                child: Text("OK"),
+              child: Text("OK"),
               textColor: Colors.white,
               color:Color(0xFF26D467)
-            )
+          )
         ],
       ),
     );
