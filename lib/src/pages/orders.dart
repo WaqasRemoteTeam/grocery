@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../generated/l10n.dart';
 import '../controllers/order_controller.dart';
@@ -19,15 +20,43 @@ class OrdersWidget extends StatefulWidget {
   _OrdersWidgetState createState() => _OrdersWidgetState();
 }
 
+
 class _OrdersWidgetState extends StateMVC<OrdersWidget> {
   OrderController _con;
 
   _OrdersWidgetState() : super(OrderController()) {
     _con = controller;
+    initSharedPreferences();
+
+  }
+
+  SharedPreferences preferences;
+  List<String> values = new List();
+
+  void initSharedPreferences()async{
+    preferences = await SharedPreferences.getInstance();
+    setState(() {
+      values = preferences.getStringList("selectedValues");
+    });
+
+  }
+
+
+  @override
+  void initState() {
+
+    super.initState();
+
+
+
   }
 
   @override
   Widget build(BuildContext context) {
+
+
+    print("object"+values.length.toString());
+
     return Scaffold(
       key: _con.scaffoldKey,
       appBar: AppBar(
@@ -72,9 +101,11 @@ class _OrdersWidgetState extends StateMVC<OrdersWidget> {
                           itemCount: _con.orders.length,
                           itemBuilder: (context, index) {
                             var _order = _con.orders.elementAt(index);
+
                             return OrderItemWidget(
                               expanded: index == 0 ? true : false,
                               order: _order,
+                              misc:values,
                               onCanceled: (e) {
                                 _con.doCancelOrder(_order);
                               },

@@ -11,9 +11,10 @@ import 'ProductOrderItemWidget.dart';
 class OrderItemWidget extends StatefulWidget {
   final bool expanded;
   final Order order;
+  final List misc;
   final ValueChanged<void> onCanceled;
 
-  OrderItemWidget({Key key, this.expanded, this.order, this.onCanceled}) : super(key: key);
+  OrderItemWidget({Key key, this.expanded, this.order, this.onCanceled,this.misc}) : super(key: key);
 
   @override
   _OrderItemWidgetState createState() => _OrderItemWidgetState();
@@ -78,6 +79,13 @@ class _OrderItemWidgetState extends State<OrderItemWidget> {
                         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                         child: Column(
                           children: <Widget>[
+                            Container(
+                              child:Row(
+                                children: widget.misc.map((e) =>
+                                  Text(e.toString())
+                                ).toList(),
+                              ) ,
+                            ),
                             Row(
                               children: <Widget>[
                                 Expanded(

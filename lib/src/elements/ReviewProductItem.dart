@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -56,9 +57,7 @@ class _ReviewProductItemWidgetState extends State<ReviewProductItemWidget>{
 
 
     List<DropdownMenuItem<dynamic>> _dropDownItemSlot(List items) {
-
       var slots = createSlotMap(items);
-
       return slots.keys.map((key) =>
           DropdownMenuItem(
               child: Container(
@@ -84,30 +83,13 @@ class _ReviewProductItemWidgetState extends State<ReviewProductItemWidget>{
           )
 
       ).toList();
-    /*  return items
-          .map((value) =>  DropdownMenuItem(
-          child: Container(
-            width: 200,
-            child: StatefulBuilder(
-              builder: (BuildContext context,StateSetter _setState){
-                return  CheckboxListTile(
-                  title: Text(value['slots'].toString()),
-                  value: _isChecked,
-                  onChanged: (bool value) {
-                    print("value is"+value.toString());
-                    _setState(() {
-                      _isChecked = value;
-                    });
-                  },
-                );
-              },
-            ),
-          )
-      )).toList();*/
+
     }
     List<DropdownMenuItem<dynamic>> _dropDownItemSubscriptions(List items) {
 
+
       var subscriptions = createSubscriptionMap(items);
+
 
       return createSubscriptionMap(items)
         .keys.map((key) =>
@@ -190,39 +172,38 @@ class _ReviewProductItemWidgetState extends State<ReviewProductItemWidget>{
                             height: 32,
 
                             child: widget.product['product_slot'].length > 0 ?
-                            DropdownButton(
-                              items: _dropDownItemSlot(widget.product['product_slot']),
-                              onChanged: (value) {
-                              },
-                              hint: Text('ON demand'),
-                            )
-                           : DropdownButton(
-                              items: widget.product['product_subscription'].length > 0 ? _dropDownItemSubscriptions(widget.product['product_subscription'])
-                               :[
-                              DropdownMenuItem(
-                              child: Container(
-                              width: 200,
-                              child: StatefulBuilder(
-                                builder: (BuildContext context,StateSetter _setState){
-                                  return  CheckboxListTile(
-                                    title: Text("On demand"),
-                                    value: _thirsValue,
-                                    onChanged: (bool value) {
-                                      _setState(() {
-                                        _thirsValue = value;
-                                      });
-                                    },
-                                  );
+                            DropdownButtonHideUnderline(
+                              child: DropdownButton(
+                                items: _dropDownItemSlot(widget.product['product_slot'])
+                                ,
+                                onChanged: (value) {
                                 },
+                                hint: Text('ON demand'),
                               ),
                             )
-                          )
-                              ]
-                              ,
-                              onChanged: (value) {
-                              },
-                              hint: Text('On demand'),
+                           : DropdownButtonHideUnderline(
+                              child: DropdownButton(
+                                items: widget.product['product_subscription'].length > 0 ? _dropDownItemSubscriptions(widget.product['product_subscription'])
+                                    :[
+                                  DropdownMenuItem(
+                                      child: Container(
+                                        width: 200,
+                                        child: StatefulBuilder(
+                                          builder: (BuildContext context,StateSetter _setState){
+                                            return  Center(
+                                              child: Text("On demand"),
+                                            );
+                                          },
+                                        ),
+                                      )
+                                  )
+                                ]
+                                ,
+                                onChanged: (value) {
+                                },
+                                hint: Text('On demand'),
                               ),
+                            ) ,
                             )
 
 

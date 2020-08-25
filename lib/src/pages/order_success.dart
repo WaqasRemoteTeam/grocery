@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../generated/l10n.dart';
 import '../controllers/checkout_controller.dart';
@@ -20,8 +21,17 @@ class OrderSuccessWidget extends StatefulWidget {
 class _OrderSuccessWidgetState extends StateMVC<OrderSuccessWidget> {
   CheckoutController _con;
 
+  SharedPreferences prefs ;
+
+  List<String> selected = new List();
+
   _OrderSuccessWidgetState() : super(CheckoutController()) {
     _con = controller;
+  }
+
+  initSharedPreferences()async{
+    prefs = await SharedPreferences.getInstance();
+
   }
 
   @override
@@ -29,11 +39,17 @@ class _OrderSuccessWidgetState extends StateMVC<OrderSuccessWidget> {
     // route param contains the payment method
     _con.payment = new Payment(widget.routeArgument.param);
     _con.listenForCarts();
+    initSharedPreferences();
+    setState(() {
+       selected = prefs.getStringList("selectedValues");
+    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+
+    print("lengtg"+prefs.getStringList("selectedValues").length.toString());
     return Scaffold(
         key: _con.scaffoldKey,
         appBar: AppBar(
