@@ -17,9 +17,10 @@ import '../models/product.dart';
 class ReviewProductItemWidget extends StatefulWidget {
 
   dynamic product;
+  List selectedValues;
 
 
-  ReviewProductItemWidget({Key key, this.product}) : super(key: key);
+  ReviewProductItemWidget({Key key, this.product, this.selectedValues}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -35,21 +36,55 @@ class _ReviewProductItemWidgetState extends State<ReviewProductItemWidget>{
 
    // print("object"+widget.productd['name']);
 
-
-
-    var _value= 1;
-    var _firstValue = false;
-    var _top = false;
-    var _secondValue = false;
     var _thirsValue = false;
-    var _fourthValue = false;
-    var _subfirstValue = false;
-    var _subsecondValue = false;
-    var _subthirsValue = false;
-    var _subfourthValue = false;
+
+
+
+
+    createSlotMap(List items){
+      return Map.fromIterable(widget.product['product_slot'],
+          key: (e)=> e['slots'],
+          value: (e)=>false);
+    }
+
+    createSubscriptionMap(List items){
+      return Map.fromIterable(widget.product['product_subscription'],
+          key: (e)=> e['subscription'],
+          value: (e)=>false);
+    }
+
+
 
     List<DropdownMenuItem<dynamic>> _dropDownItemSlot(List items) {
-      return items
+
+      var slots = createSlotMap(items);
+
+      return slots.keys.map((key) =>
+          DropdownMenuItem(
+              child: Container(
+                width: 200,
+                child: StatefulBuilder(
+                  builder: (BuildContext context,StateSetter _setState){
+                    return  CheckboxListTile(
+                      title: Text(key.toString()),
+                      value: slots[key],
+                      onChanged: (bool value) {
+                        print("${key.toString()} "+value.toString());
+                        _setState(() {
+                          slots[key] = value;
+                          if (value == true){
+                            widget.selectedValues.add(key.toString());
+                          }
+                        });
+                      },
+                    );
+                  },
+                ),
+              )
+          )
+
+      ).toList();
+    /*  return items
           .map((value) =>  DropdownMenuItem(
           child: Container(
             width: 200,
@@ -57,19 +92,50 @@ class _ReviewProductItemWidgetState extends State<ReviewProductItemWidget>{
               builder: (BuildContext context,StateSetter _setState){
                 return  CheckboxListTile(
                   title: Text(value['slots'].toString()),
-                  value: _thirsValue,
+                  value: _isChecked,
                   onChanged: (bool value) {
+                    print("value is"+value.toString());
                     _setState(() {
-                      _thirsValue = value;
+                      _isChecked = value;
                     });
                   },
                 );
               },
             ),
           )
-      )).toList();
+      )).toList();*/
     }
     List<DropdownMenuItem<dynamic>> _dropDownItemSubscriptions(List items) {
+
+      var subscriptions = createSubscriptionMap(items);
+
+      return createSubscriptionMap(items)
+        .keys.map((key) =>
+          DropdownMenuItem(
+              child: Container(
+                width: 200,
+                child: StatefulBuilder(
+                  builder: (BuildContext context,StateSetter _setState){
+                    return  CheckboxListTile(
+                      title: Text(key.toString()),
+                      value: subscriptions[key],
+                      onChanged: (bool value) {
+
+                        _setState(() {
+                          subscriptions[key] = value;
+                          if (value == true){
+                            widget.selectedValues.add(key.toString());
+                          }
+
+                        });
+                      },
+                    );
+                  },
+                ),
+              )
+          )
+
+      ).toList();
 
       print(items.toString());
       return items

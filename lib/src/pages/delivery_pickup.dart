@@ -31,6 +31,8 @@ class _DeliveryPickupWidgetState extends StateMVC<DeliveryPickupWidget> {
     _con = controller;
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     if (_con.list == null) {
@@ -38,6 +40,8 @@ class _DeliveryPickupWidgetState extends StateMVC<DeliveryPickupWidget> {
 //      widget.pickup = widget.list.pickupList.elementAt(0);
 //      widget.delivery = widget.list.pickupList.elementAt(1);
     }
+
+
     return Scaffold(
       key: _con.scaffoldKey,
       bottomNavigationBar: CartBottomDetailsWidget(con: _con),
@@ -89,13 +93,15 @@ class _DeliveryPickupWidgetState extends StateMVC<DeliveryPickupWidget> {
               children: <Widget>[
 
                 GestureDetector(
-                  onTap: (){
+                  onTap:  () {
                     Navigator.of(context).push(new MaterialPageRoute<Null>(
                         builder: (BuildContext context) {
                           return new DeliveryMethodAlertDialog();
                         },
                         fullscreenDialog: true
                     ));
+
+
                   },
                   child:  Padding(
                     padding: const EdgeInsets.only(top: 20, bottom: 10, left: 20, right: 10),

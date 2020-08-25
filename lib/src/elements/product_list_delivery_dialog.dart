@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:markets/src/elements/ReviewProductItem.dart';
 import 'package:markets/src/models/product_category.dart';
 import 'package:dropdownfield/dropdownfield.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/product.dart';
 import 'package:http/http.dart' as http;
@@ -38,6 +39,13 @@ class _CustomerProductsListState  extends State<CustomerProductsList> {
 
   List <dynamic> productsList;
 
+  SharedPreferences prefs ;
+
+
+  initSharedPreferences()async{
+    prefs = await SharedPreferences.getInstance();
+  }
+
   String url = "http://skalani.in/multi/public/api/products/categories";
 
    Future<List<dynamic>> _getCategories() async {
@@ -51,6 +59,8 @@ class _CustomerProductsListState  extends State<CustomerProductsList> {
   @override
   void initState() {
     super.initState();
+    initSharedPreferences();
+
     _getCategories().then((value) => {
       setState((){
         productsList = value;
@@ -64,7 +74,9 @@ class _CustomerProductsListState  extends State<CustomerProductsList> {
   Widget build(BuildContext context) {
     // TODO: implement build
 
+    List selectedValues = new List() ;
 
+    List<String> _newSelectedValues=  new List();
 
     return Container(
       child: Column(
@@ -88,6 +100,7 @@ class _CustomerProductsListState  extends State<CustomerProductsList> {
 
                          return ReviewProductItemWidget(
                         product: snapshot.data.elementAt(index),
+                         selectedValues:selectedValues
 
                        );
                       },
@@ -106,7 +119,14 @@ class _CustomerProductsListState  extends State<CustomerProductsList> {
           RaisedButton(
 
               onPressed: (){
-                Navigator.pop(context);
+
+                for( var i = 0; i<selectedValues.length;i++){
+                    _newSelectedValues.add(selectedValues.elementAt(i));
+                }
+
+                prefs.setStringList("selectedValues", _newSelectedValues);
+                print(selectedValues.toString());
+                 Navigator.pop(context);
               },
               child: Text("OK"),
               textColor: Colors.white,
