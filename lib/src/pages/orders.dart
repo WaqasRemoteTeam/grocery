@@ -26,17 +26,15 @@ class _OrdersWidgetState extends StateMVC<OrdersWidget> {
 
   _OrdersWidgetState() : super(OrderController()) {
     _con = controller;
-    initSharedPreferences();
-
   }
 
-  SharedPreferences preferences;
-  List<String> values = new List();
+  SharedPreferences prefs;
+  List<String> selected = new List();
 
-  void initSharedPreferences()async{
-    preferences = await SharedPreferences.getInstance();
+  initSharedPreferences()async{
+    prefs = await SharedPreferences.getInstance();
     setState(() {
-      values = preferences.getStringList("selectedValues");
+      selected =  prefs.getStringList("selectedValues");
     });
 
   }
@@ -47,6 +45,8 @@ class _OrdersWidgetState extends StateMVC<OrdersWidget> {
 
     super.initState();
 
+    print("object ${initSharedPreferences()}");
+
 
 
   }
@@ -54,8 +54,6 @@ class _OrdersWidgetState extends StateMVC<OrdersWidget> {
   @override
   Widget build(BuildContext context) {
 
-
-    print("object"+values.length.toString());
 
     return Scaffold(
       key: _con.scaffoldKey,
@@ -105,7 +103,7 @@ class _OrdersWidgetState extends StateMVC<OrdersWidget> {
                             return OrderItemWidget(
                               expanded: index == 0 ? true : false,
                               order: _order,
-                              misc:values,
+                              misc: selected,
                               onCanceled: (e) {
                                 _con.doCancelOrder(_order);
                               },

@@ -80,7 +80,7 @@ class _OrderItemWidgetState extends State<OrderItemWidget> {
                         child: Column(
                           children: <Widget>[
                             Container(
-                              child:Row(
+                              child:Column(
                                 children: widget.misc.map((e) =>
                                   Text(e.toString())
                                 ).toList(),

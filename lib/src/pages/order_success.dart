@@ -31,6 +31,9 @@ class _OrderSuccessWidgetState extends StateMVC<OrderSuccessWidget> {
 
   initSharedPreferences()async{
     prefs = await SharedPreferences.getInstance();
+    setState(() {
+      selected =  prefs.getStringList("selectedValues");
+    });
 
   }
 
@@ -39,17 +42,13 @@ class _OrderSuccessWidgetState extends StateMVC<OrderSuccessWidget> {
     // route param contains the payment method
     _con.payment = new Payment(widget.routeArgument.param);
     _con.listenForCarts();
-    initSharedPreferences();
-    setState(() {
-       selected = prefs.getStringList("selectedValues");
-    });
     super.initState();
+    initSharedPreferences();
   }
 
   @override
   Widget build(BuildContext context) {
 
-    print("lengtg"+prefs.getStringList("selectedValues").length.toString());
     return Scaffold(
         key: _con.scaffoldKey,
         appBar: AppBar(

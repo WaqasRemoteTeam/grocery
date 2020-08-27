@@ -40,8 +40,6 @@ class _ReviewProductItemWidgetState extends State<ReviewProductItemWidget>{
     var _thirsValue = false;
 
 
-
-
     createSlotMap(List items){
       return Map.fromIterable(widget.product['product_slot'],
           key: (e)=> e['slots'],
@@ -64,18 +62,20 @@ class _ReviewProductItemWidgetState extends State<ReviewProductItemWidget>{
                 width: 200,
                 child: StatefulBuilder(
                   builder: (BuildContext context,StateSetter _setState){
-                    return  CheckboxListTile(
-                      title: Text(key.toString()),
-                      value: slots[key],
-                      onChanged: (bool value) {
-                        print("${key.toString()} "+value.toString());
-                        _setState(() {
-                          slots[key] = value;
-                          if (value == true){
-                            widget.selectedValues.add(key.toString());
-                          }
-                        });
-                      },
+                    return  Center(
+                      child: CheckboxListTile(
+                        title: Text(key.toString()),
+                        value: slots[key],
+                        onChanged: (bool value) {
+                          print("${key.toString()} "+value.toString());
+                          _setState(() {
+                            slots[key] = value;
+                            if (value == true){
+                              widget.selectedValues.add(key.toString());
+                            }
+                          });
+                        },
+                      )
                     );
                   },
                 ),
@@ -98,19 +98,21 @@ class _ReviewProductItemWidgetState extends State<ReviewProductItemWidget>{
                 width: 200,
                 child: StatefulBuilder(
                   builder: (BuildContext context,StateSetter _setState){
-                    return  CheckboxListTile(
-                      title: Text(key.toString()),
-                      value: subscriptions[key],
-                      onChanged: (bool value) {
+                    return Center(
+                      child:  CheckboxListTile(
+                        title: Text(key.toString()),
+                        value: subscriptions[key],
+                        onChanged: (bool value) {
 
-                        _setState(() {
-                          subscriptions[key] = value;
-                          if (value == true){
-                            widget.selectedValues.add(key.toString());
-                          }
+                          _setState(() {
+                            subscriptions[key] = value;
+                            if (value == true){
+                              widget.selectedValues.add(key.toString());
+                            }
 
-                        });
-                      },
+                          });
+                        },
+                      ),
                     );
                   },
                 ),
@@ -183,22 +185,7 @@ class _ReviewProductItemWidgetState extends State<ReviewProductItemWidget>{
                             )
                            : DropdownButtonHideUnderline(
                               child: DropdownButton(
-                                items: widget.product['product_subscription'].length > 0 ? _dropDownItemSubscriptions(widget.product['product_subscription'])
-                                    :[
-                                  DropdownMenuItem(
-                                      child: Container(
-                                        width: 200,
-                                        child: StatefulBuilder(
-                                          builder: (BuildContext context,StateSetter _setState){
-                                            return  Center(
-                                              child: Text("On demand"),
-                                            );
-                                          },
-                                        ),
-                                      )
-                                  )
-                                ]
-                                ,
+                                items: _dropDownItemSubscriptions(widget.product['product_subscription']),
                                 onChanged: (value) {
                                 },
                                 hint: Text('On demand'),
